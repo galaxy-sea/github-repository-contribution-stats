@@ -81,7 +81,7 @@ app.get('/api', async (req, res) => {
         locale: locale ? (locale as string).toLowerCase() : null,
         limit,
         width: width ? width : 495,
-        icon_padding_x: parseInt((icon_padding_x as string)),
+        icon_padding_x: icon_padding_x ? parseInt((icon_padding_x as string)) : 0,
       }),
     );
   } catch (err: any) {
