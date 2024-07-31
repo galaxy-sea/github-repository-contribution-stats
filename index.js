@@ -44105,7 +44105,7 @@ class Card {
         role="img"
         aria-labelledby="descId"
       >
-        <a xlink:href="https://github.com/HwangTaehyun/github-contributor-stats" 
+        <a xlink:href="https://github.com/galaxy-sea/repository-contribution-stats" 
         xlink:title="github-contributor-stats(new tab)"
         target="_blank">
           <title id="titleId">${this.a11yTitle}</title>
@@ -53882,7 +53882,7 @@ app.get('/api', async (req, res) => {
             locale: locale ? locale.toLowerCase() : null,
             limit,
             width: width ? width : 495,
-            icon_padding_x: parseInt(icon_padding_x),
+            icon_padding_x: icon_padding_x ? parseInt(icon_padding_x) : 0,
         }));
     }
     catch (err) {

@@ -269,7 +269,7 @@ export class Card {
         role="img"
         aria-labelledby="descId"
       >
-        <a xlink:href="https://github.com/HwangTaehyun/github-contributor-stats" 
+        <a xlink:href="https://github.com/galaxy-sea/repository-contribution-stats" 
         xlink:title="github-contributor-stats(new tab)"
         target="_blank">
           <title id="titleId">${this.a11yTitle}</title>
