@@ -14,6 +14,7 @@ export class Card {
   css: string;
   paddingX: number;
   paddingY: number;
+  icon_padding_x: number;
   titlePrefixIcon: any;
   animations: boolean;
   a11yTitle: string;
@@ -36,6 +37,7 @@ export class Card {
     customTitle,
     defaultTitle = '',
     titlePrefixIcon = '',
+    icon_padding_x = 0,
   }) {
     this.width = width;
     this.height = height;
@@ -56,6 +58,7 @@ export class Card {
 
     this.paddingX = 25;
     this.paddingY = 35;
+    this.icon_padding_x = icon_padding_x;
     this.titlePrefixIcon = titlePrefixIcon;
     this.animations = true;
     this.a11yTitle = '';
@@ -218,7 +221,7 @@ export class Card {
       </g>
       <g
         data-testid="card-title"
-        transform="translate(${this.paddingX + 235}, ${this.paddingY + 30})"
+        transform="translate(${this.paddingX + this.icon_padding_x + 235}, ${this.paddingY + 30})"
       >
         ${flexLayout({
           items: [!this.hideContributorRank && gitPRIcon, starIcon],

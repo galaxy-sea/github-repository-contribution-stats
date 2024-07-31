@@ -43708,13 +43708,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN;
-const createTextNode = ({ imageBase64, name, rank, contributionRank, index, height }) => {
+const createTextNode = ({ imageBase64, name, rank, contributionRank, index, height, icon_padding_x }) => {
     const staggerDelay = (index + 3) * 150;
     const calculateTextWidth = (text) => {
         return (0,_common_utils__WEBPACK_IMPORTED_MODULE_5__.measureText)(text, 18);
     };
-    let offset = (0,_common_utils__WEBPACK_IMPORTED_MODULE_5__.clampValue)(calculateTextWidth(name), 230, 400);
-    offset += offset === 230 ? 5 : 15;
+    let min = 230 + icon_padding_x;
+    let offset = (0,_common_utils__WEBPACK_IMPORTED_MODULE_5__.clampValue)(calculateTextWidth(name), min, 400);
+    offset += offset === min ? 5 : 15;
     let offset2 = offset + 50;
     const contributionRankText = contributionRank?.includes('+')
         ? `<text x="4" y="18.5">
@@ -43767,7 +43768,7 @@ const createTextNode = ({ imageBase64, name, rank, contributionRank, index, heig
   `;
 };
 const renderContributorStatsCard = async (username, name, contributorStats = [], options = {}) => {
-    const { hide = [], line_height = 25, hide_title = false, hide_border = false, hide_contributor_rank = true, order_by = 'stars', title_color, icon_color, text_color, bg_color, border_radius, border_color, custom_title, theme = 'default', locale, limit = -1, } = options;
+    const { hide = [], line_height = 25, hide_title = false, hide_border = false, hide_contributor_rank = true, order_by = 'stars', title_color, icon_color, text_color, bg_color, border_radius, border_color, custom_title, theme = 'default', locale, limit = -1, width, icon_padding_x, } = options;
     const orderBy = order_by;
     const lheight = parseInt(String(line_height), 10);
     const { titleColor, textColor, iconColor, bgColor, borderColor } = (0,_common_utils__WEBPACK_IMPORTED_MODULE_5__.getCardColors)({
@@ -43805,7 +43806,9 @@ const renderContributorStatsCard = async (username, name, contributorStats = [],
     };
     const sortFunction = orderBy == 'stars'
         ? (a, b) => b.stars - a.stars
-        : (a, b) => rankValues[b.contributionRank] - rankValues[a.contributionRank];
+        : orderBy == 'length'
+            ? (a, b) => a.name.length - b.name.length
+            : (a, b) => rankValues[b.contributionRank] - rankValues[a.contributionRank];
     const transformedContributorStats = contributorStats
         .map((contributorStat, index) => {
         const { url, name, stargazerCount, numOfMyContributions } = contributorStat;
@@ -43835,6 +43838,7 @@ const renderContributorStatsCard = async (username, name, contributorStats = [],
         ...transformedContributorStats[key],
         index,
         lheight,
+        icon_padding_x,
     }));
     statItems = limit > 0 ? statItems.slice(0, limit) : statItems.slice();
     const distanceY = 8;
@@ -43846,7 +43850,6 @@ const renderContributorStatsCard = async (username, name, contributorStats = [],
         show_icons: true,
         progress: true,
     });
-    const width = 495;
     const card = new _common_Card__WEBPACK_IMPORTED_MODULE_3__.Card({
         customTitle: custom_title,
         defaultTitle: i18n.t('statcard.title'),
@@ -43854,6 +43857,7 @@ const renderContributorStatsCard = async (username, name, contributorStats = [],
         width,
         height,
         border_radius,
+        icon_padding_x,
         colors: {
             titleColor,
             textColor,
@@ -43908,11 +43912,12 @@ class Card {
     css;
     paddingX;
     paddingY;
+    icon_padding_x;
     titlePrefixIcon;
     animations;
     a11yTitle;
     a11yDesc;
-    constructor({ width = 100, height = 100, border_radius = 4.5, colors = {}, customTitle, defaultTitle = '', titlePrefixIcon = '', }) {
+    constructor({ width = 100, height = 100, border_radius = 4.5, colors = {}, customTitle, defaultTitle = '', titlePrefixIcon = '', icon_padding_x = 0, }) {
         this.width = width;
         this.height = height;
         this.hideBorder = false;
@@ -43926,6 +43931,7 @@ class Card {
         this.css = '';
         this.paddingX = 25;
         this.paddingY = 35;
+        this.icon_padding_x = icon_padding_x;
         this.titlePrefixIcon = titlePrefixIcon;
         this.animations = true;
         this.a11yTitle = '';
@@ -44056,7 +44062,7 @@ class Card {
       </g>
       <g
         data-testid="card-title"
-        transform="translate(${this.paddingX + 235}, ${this.paddingY + 30})"
+        transform="translate(${this.paddingX + this.icon_padding_x + 235}, ${this.paddingY + 30})"
       >
         ${(0,_common_utils__WEBPACK_IMPORTED_MODULE_0__.flexLayout)({
             items: [!this.hideContributorRank && gitPRIcon, starIcon],
@@ -53845,7 +53851,7 @@ __webpack_require__.r(__webpack_exports__);
 const app = express__WEBPACK_IMPORTED_MODULE_5___default()();
 app.use(compression__WEBPACK_IMPORTED_MODULE_6___default()());
 app.get('/api', async (req, res) => {
-    const { username, hide, hide_title, hide_border, hide_contributor_rank, order_by, line_height, title_color, icon_color, text_color, bg_color, custom_title, border_radius, border_color, theme, cache_seconds, locale, combine_all_yearly_contributions, limit, } = req.query;
+    const { username, hide, hide_title, hide_border, hide_contributor_rank, order_by, line_height, title_color, icon_color, text_color, bg_color, custom_title, border_radius, border_color, theme, cache_seconds, locale, combine_all_yearly_contributions, limit, width, icon_padding_x, } = req.query;
     res.set('Content-Type', 'image/svg+xml');
     if (locale && !(0,_translations__WEBPACK_IMPORTED_MODULE_4__.isLocaleAvailable)(locale)) {
         return res.send((0,_common_utils__WEBPACK_IMPORTED_MODULE_1__.renderError)('Something went wrong', 'Language not found'));
@@ -53875,6 +53881,8 @@ app.get('/api', async (req, res) => {
             theme,
             locale: locale ? locale.toLowerCase() : null,
             limit,
+            width: width ? width : 495,
+            icon_padding_x: parseInt(icon_padding_x),
         }));
     }
     catch (err) {

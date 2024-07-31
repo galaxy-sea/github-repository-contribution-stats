@@ -16,15 +16,15 @@ import { Contributor, getContributors } from 'getContributors';
 
 const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN;
 
-const createTextNode = ({ imageBase64, name, rank, contributionRank, index, height }) => {
+const createTextNode = ({ imageBase64, name, rank, contributionRank, index, height, icon_padding_x }) => {
   const staggerDelay = (index + 3) * 150;
 
   const calculateTextWidth = (text) => {
     return measureText(text, 18);
   };
-
-  let offset = clampValue(calculateTextWidth(name), 230, 400);
-  offset += offset === 230 ? 5 : 15;
+  let min = 230 + icon_padding_x
+  let offset = clampValue(calculateTextWidth(name), min, 400);
+  offset += offset === min ? 5 : 15;
   let offset2 = offset + 50;
 
   const contributionRankText = contributionRank?.includes('+')
@@ -104,6 +104,8 @@ export const renderContributorStatsCard = async (
     theme = 'default',
     locale,
     limit = -1,
+    width,
+    icon_padding_x,
   } = options;
 
   const orderBy = order_by;
@@ -155,7 +157,9 @@ export const renderContributorStatsCard = async (
   const sortFunction =
     orderBy == 'stars'
       ? (a, b) => b.stars - a.stars
-      : (a, b) => rankValues[b.contributionRank] - rankValues[a.contributionRank];
+      : orderBy == 'length'
+        ? (a, b) => a.name.length - b.name.length
+        : (a, b) => rankValues[b.contributionRank] - rankValues[a.contributionRank];
 
   const transformedContributorStats = contributorStats
     .map((contributorStat, index) => {
@@ -193,6 +197,7 @@ export const renderContributorStatsCard = async (
       ...transformedContributorStats[key],
       index,
       lheight,
+      icon_padding_x,
     }),
   );
 
@@ -211,8 +216,6 @@ export const renderContributorStatsCard = async (
     progress: true,
   });
 
-  const width = 495;
-
   const card = new Card({
     customTitle: custom_title,
     defaultTitle: i18n.t('statcard.title'),
@@ -220,6 +223,7 @@ export const renderContributorStatsCard = async (
     width,
     height,
     border_radius,
+    icon_padding_x,
     colors: {
       titleColor,
       textColor,

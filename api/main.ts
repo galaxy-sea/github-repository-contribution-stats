@@ -38,6 +38,8 @@ app.get('/api', async (req, res) => {
     locale,
     combine_all_yearly_contributions,
     limit,
+    width,
+    icon_padding_x,
   } = req.query;
   res.set('Content-Type', 'image/svg+xml');
 
@@ -78,6 +80,8 @@ app.get('/api', async (req, res) => {
         theme,
         locale: locale ? (locale as string).toLowerCase() : null,
         limit,
+        width: width ? width : 495,
+        icon_padding_x: parseInt((icon_padding_x as string)),
       }),
     );
   } catch (err: any) {
