@@ -73,7 +73,7 @@ By default, the card is generated from GitHub's GraphQL API `repositoriesContrib
 
 The repository name and username are too long, you can use `&width=600&icon_padding_x=100` to adjust the card width
 
-![Taehyun's GitHub Repository Contribution stats](/Users/changjinwei/my-workbench/my-github/repository-contribution-stats/img/width.png)
+<img src="./img/width.png" width="400">
 
 ### Themes
 
