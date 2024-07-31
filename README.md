@@ -20,12 +20,12 @@ After I have applied this, I became enthusiastic about contributing to open sour
 Change the `?username=` value to your GitHub username.
 
 ```md
-![Taehyun's GitHub Repository Contribution stats](https://github-contributor-stats.vercel.app/api?username=HwangTaehyun)
+![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea)
 ```
 
 ### Demo
 
-![Taehyun's GitHub Repository Contribution stats](https://github-contributor-stats.vercel.app/api?username=HwangTaehyun&hide=B)
+![Taehyun's GitHub Repository Contribution stats](./img/galaxy-sea.png)
 
 \_Note: Available ranks are S+ (over 10000), S (over 1000), A+ (over 500), A (over 100), B+ (over 50) and B (over 1).
 
@@ -34,7 +34,7 @@ Change the `?username=` value to your GitHub username.
 To limit contribution repos to show, you can pass a query parameter `&limit=` with number value. For example, if you want to show only 5 contribution repos, then add **limit=5** like the following one.
 
 ```md
-![Taehyun's GitHub Repository Contribution stats](https://github-contributor-stats.vercel.app/api?username=HwangTaehyun&limit=5)
+![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea&limit=5)
 ```
 
 ### Hiding rank stats
@@ -42,7 +42,7 @@ To limit contribution repos to show, you can pass a query parameter `&limit=` wi
 To hide specific ranks, you can pass a query parameter `&hide=` with comma-separated rank values. If you need to add plus rank (ex. B+) to hide arrays , it is always safe to replace pluses with %2B
 
 ```md
-![Taehyun's GitHub Repository Contribution stats](https://github-contributor-stats.vercel.app/api?username=HwangTaehyun&hide=B,B%2B)
+![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea&hide=B,B%2B)
 ```
 
 ### Showing contributor rank stats
@@ -50,15 +50,15 @@ To hide specific ranks, you can pass a query parameter `&hide=` with comma-separ
 To show contributor ranks, you can pass a query parameter `&hide_contributor_rank=false`.
 
 ```md
-![Taehyun's GitHub Repository Contribution stats](https://github-contributor-stats.vercel.app/api?username=HwangTaehyun&hide=B,B%2B&hide_contributor_rank=false&limit=5)
+![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea&hide=B,B%2B&hide_contributor_rank=false&limit=5)
 ```
 
 ### Configuring the sorting order for gitHub contributor stats
 
-To specify the sorting order based on either contributions or star count, include the &order_by= query parameter with the options `stars` or `contributions` in your request URL.
+To specify the sorting order based on either contributions or star count or repository name length, include the &order_by= query parameter with the options `stars` or `contributions` or `length` in your request URL.
 
 ```md
-![Taehyun's GitHub Repository Contribution stats](https://github-contributor-stats.vercel.app/api?username=HwangTaehyun&hide=B,B%2B&hide_contributor_rank=false&limit=5&order_by=contributions)
+![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea&hide=B,B%2B&hide_contributor_rank=false&limit=5&order_by=contributions)
 ```
 
 ### Including all contributions, not only recent contributions
@@ -66,8 +66,14 @@ To specify the sorting order based on either contributions or star count, includ
 By default, the card is generated from GitHub's GraphQL API `repositoriesContributedTo`, which only includes recent contributions. To include all contributions, add `&combine_all_yearly_contributions=true` query parameter, which will let the card be generated from GitHub's GraphQL API `contributionsCollection`, including all contributions.
 
 ```md
-![Taehyun's GitHub Repository Contribution stats](https://github-contributor-stats.vercel.app/api?username=HwangTaehyun&combine_all_yearly_contributions=true)
+![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea&combine_all_yearly_contributions=true)
 ```
+
+### Card width, stats icons coordinate
+
+The repository name and username are too long, you can use `&width=600&icon_padding_x=100` to adjust the card width
+
+![Taehyun's GitHub Repository Contribution stats](/Users/changjinwei/my-workbench/my-github/repository-contribution-stats/img/width.png)
 
 ### Themes
 
@@ -76,7 +82,7 @@ With inbuilt themes, you can customize the look of the card without doing any [m
 Use `&theme=THEME_NAME` parameter like so :-
 
 ```md
-![Taehyun's GitHub Repository Contribution stats](https://github-contributor-stats.vercel.app/api?username=HwangTaehyun&hide=B&theme=default)
+![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea&hide=B&theme=default)
 ```
 
 #### All inbuilt themes:- in <a href="https://github.com/anuraghazra/github-readme-stats">github-readme-stats' themes</a>
@@ -87,19 +93,6 @@ You can look at a preview for [all available themes](./themes/README.md) or chec
 
 > Note: The minimum of cache_seconds is currently 4 hours as a temporary fix for PATs exhaustion.
 
-## :sparkling_heart: Support the project
-
-I open-source almost everything I can and try to reply to everyone needing help using these projects. Obviously,
-this takes time. You can use this service for free.
-
-However, if you are using this project and are happy with it or just want to encourage me to continue creating stuff, there are a few ways you can do it:
-
-- Starring and sharing the project :rocket:
-- You can make one-time donations via buymeacoffee. I'll probably buy a coffee! :coffee:
-
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/eeht17173)
-
-Thanks! :heart:
 
 ## Contribution
 
