@@ -89,6 +89,10 @@ app.get('/api', async (req, res) => {
   }
 });
 
+app.all("/*", (req, res) => {
+    return res.redirect("https://github.com/galaxy-sea/repository-contribution-stats")
+})
+
 const port = 9999;
 
 app.listen(port, () => {

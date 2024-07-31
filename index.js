@@ -53889,6 +53889,9 @@ app.get('/api', async (req, res) => {
         return res.send((0,_common_utils__WEBPACK_IMPORTED_MODULE_1__.renderError)(err.message, err.secondaryMessage));
     }
 });
+app.all("/*", (req, res) => {
+    return res.redirect("https://github.com/galaxy-sea/repository-contribution-stats");
+});
 const port = 9999;
 app.listen(port, () => {
     console.log(`Express app listening on port ${port}`);
