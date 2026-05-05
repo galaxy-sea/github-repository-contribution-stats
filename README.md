@@ -67,6 +67,12 @@ You can also pass `/pattern/flags` style values:
 ![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea&hide_repo_regex=%2Fdemo%2Fi)
 ```
 
+If your regex is hard to URL-encode, you can pass a base64 or base64url payload with a `base64:` or `b64:` prefix. The decoded value can still be either a raw pattern or `/pattern/flags`.
+
+```md
+![Taehyun's GitHub Repository Contribution stats](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea&hide_repo_regex=base64:L2RlbW8vaQ==)
+```
+
 ### Configuring the sorting order for gitHub contributor stats
 
 To specify the sorting order based on either contributions or star count or repository name length, include the &order_by= query parameter with the options `stars` or `contributions` or `length` in your request URL.

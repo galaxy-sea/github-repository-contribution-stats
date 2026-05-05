@@ -43708,8 +43708,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN;
+const BASE64_REGEX_PREFIXES = ['base64:', 'b64:'];
+const decodeBase64RegexParam = (regexParam) => {
+    const matchedPrefix = BASE64_REGEX_PREFIXES.find((prefix) => regexParam.startsWith(prefix));
+    if (!matchedPrefix) {
+        return regexParam;
+    }
+    const encodedValue = regexParam.slice(matchedPrefix.length).trim();
+    if (!encodedValue) {
+        throw new Error('Empty base64 payload');
+    }
+    const normalizedValue = encodedValue.replace(/-/g, '+').replace(/_/g, '/');
+    const paddedValue = normalizedValue.padEnd(normalizedValue.length + ((4 - (normalizedValue.length % 4)) % 4), '=');
+    if (!/^[A-Za-z0-9+/]+={0,2}$/.test(paddedValue)) {
+        throw new Error('Invalid base64 payload');
+    }
+    return Buffer.from(paddedValue, 'base64').toString('utf8');
+};
 const parseRegexFromParam = (regexParam) => {
-    return new RegExp(regexParam);
+    const decodedRegexParam = decodeBase64RegexParam(regexParam);
+    const regexLiteralMatch = decodedRegexParam.match(/^\/([\s\S]*)\/([a-z]*)$/i);
+    if (regexLiteralMatch) {
+        const [, pattern, flags] = regexLiteralMatch;
+        return new RegExp(pattern, flags);
+    }
+    return new RegExp(decodedRegexParam);
 };
 const shouldHideRepo = (hideRepoRegex, repositoryNameWithOwner) => {
     if (!hideRepoRegex)
