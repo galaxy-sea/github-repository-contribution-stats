@@ -119,3 +119,8 @@ You can look at a preview for [all available themes](./themes/README.md) or chec
 Contributions are welcome!
 
 Made with :fire: and TypeScript.
+
+
+## Address 
+- [https://repository-contribution-stats.vercel.app/api?username=galaxy-sea](https://repository-contribution-stats.vercel.app/api?username=galaxy-sea)
+- [https://repository-contribution-stats-api-proxy.wcj.plus/api?username=galaxy-sea](https://repository-contribution-stats-api-proxy.wcj.plus/api?username=galaxy-sea)(中国大陆地区 代理地址)
